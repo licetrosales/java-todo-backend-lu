@@ -4,5 +4,5 @@ Content-Type: application/json
 
 {
 "description":"Sachen packen",
-"status": "OPEN"
+"status": "IN_PROGRESS"
 }
