@@ -16,6 +16,7 @@ export default function TodoApp() {
     const [todos, setTodos] = useState<Todo []>([])
 
 // Eine Funktion um "Seiteneffekte" zu verarbeiten
+    // Wir nutzen useEffect um eine Endlosschleife zu vermeiden
     useEffect(()=> {
         getTodos()
         //[] : useEffect wird beim ERSTEN laden der Komponente
