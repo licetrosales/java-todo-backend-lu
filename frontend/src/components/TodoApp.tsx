@@ -14,6 +14,13 @@ export default function TodoApp() {
     // todos = Daten
 
     const [todos, setTodos] = useState<Todo []>([])
+
+// Eine Funktion um "Seiteneffekte" zu verarbeiten
+    useEffect(()=> {
+        getTodos()
+        //[] : useEffect wird beim ERSTEN laden der Komponente
+    }, [])
+
     function getTodos(){
         // get wiel HTTP GET
         // Eine Anfrage ist asynchron
