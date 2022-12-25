@@ -3,6 +3,6 @@ Content-Type: application/json
 
 
 {
-"description":"Sachen packen",
-"status": "IN_PROGRESS"
+"description":"Zimmer aufräumen",
+"status": "OPEN"
 }
