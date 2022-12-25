@@ -5,6 +5,7 @@ import axios from "axios";
 import {Todo} from "../models/Todo";
 import {useEffect, useState} from "react";
 import AddTodo from "./AddTodo";
+import Search from "./Search";
 
 export default function TodoApp() {
     const todoBaseUrl = "/api/todo";
@@ -15,6 +16,7 @@ export default function TodoApp() {
     // todos = Daten
 
     const [todos, setTodos] = useState<Todo []>([])
+    const [searchQuery, setSearchQuery] = useState<string>("")
 
 // Eine Funktion um "Seiteneffekte" zu verarbeiten
     // Wir nutzen useEffect um eine Endlosschleife zu vermeiden
@@ -61,12 +63,12 @@ export default function TodoApp() {
                         // Was pasiert: mit den crei Punkten kopieren wir alles aus dem "prevTodos" Array
                         // und fügen das neue Element zur Liste hinzu
                         // mit return geben wir die neu erstellte Liste (alte Liste + neues Element) zurück
-                    // Was bei den Pünktchen unter der Haube passiert:
-                    // const newTodoList: Todo[] = []
-                    // for (const todo of prevTodoList) {
-                    // new TodoList.push(todo)
-                    //}
-                    return [...prevTodoList, newTodoResponse.data]
+                        // Was bei den Pünktchen unter der Haube passiert:
+                        // const newTodoList: Todo[] = []
+                        // for (const todo of prevTodoList) {
+                        // new TodoList.push(todo)
+                        //}
+                        return [...prevTodoList, newTodoResponse.data]
                     }
                 )
             })
@@ -81,10 +83,26 @@ export default function TodoApp() {
     // 1. Das neue Todo übergeben
     // 2. Das neue Todo ans Backend verschicken
     // 3. Das neue Todo MIT der ID in der Liste speichern
+
+    function updateSearchQuery(newSearchQuery: string) {
+        console.log(newSearchQuery)
+        setSearchQuery(newSearchQuery)
+    }
+
+// Suche alle Todos, die in der Beschreibung den Suchbegriffen haben
+    //Groß und Kleinschreibung soll ignoriert werden
+    // const filteredTodos = todos.filter(todo => todo.description.toLowerCase()
+    //             .includes(searchQuery.toLowerCase()))
+    const filteredTodos = todos.filter(todo => {
+        return todo.description.toLowerCase()
+            .includes(searchQuery.toLowerCase())
+
+    })
     return (
         <section>
             <h1> Beste Todo App der Welt </h1>
-            <TodoList todosToMap={todos}/>
+            <Search handleSearchQueryChange={updateSearchQuery}/>
+            <TodoList todosToMap={filteredTodos}/>
             <AddTodo handleAddTodo={addTodo}/>
         </section>
     )
